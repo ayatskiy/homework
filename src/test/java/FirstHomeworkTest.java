@@ -1,4 +1,4 @@
-import config.OtusWebsiteConfig;
+import config.WebsiteConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
@@ -10,10 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.jupiter.api.Assertions;
 
-public class FirstHomework {
+class FirstHomeworkTest {
 
-    private OtusWebsiteConfig otusWebsite = ConfigFactory.create(OtusWebsiteConfig.class);
-    private Logger logger = LogManager.getLogger(FirstHomework.class);
+    private WebsiteConfig cfg = ConfigFactory.create(WebsiteConfig.class);
+    private final Logger logger = LogManager.getLogger(FirstHomeworkTest.class);
     private static WebDriver driver;
 
     @BeforeEach
@@ -30,10 +30,10 @@ public class FirstHomework {
     }
 
     @Test
-    public void CheckOtusWebsiteTitle(){
-        driver.get(otusWebsite.url());
-        logger.info("Сайт c URL={} открыт",otusWebsite.url());
-        Assertions.assertEquals(otusWebsite.title(), driver.getTitle(),"Заголовок страницы не совпал с ожидаемым!!!");
-        logger.info("Тест прошёл, заголовок страницы равен: \"{}\", как и ожидалось", otusWebsite.title());
+    void CheckOtusTitle(){
+        driver.get(cfg.otusUrl());
+        logger.info("Сайт c URL={} открыт",cfg.otusUrl());
+        Assertions.assertEquals(cfg.otusTitle(), driver.getTitle(),"Заголовок страницы не совпал с ожидаемым!!!");
+        logger.info("Тест прошёл, заголовок страницы равен: \"{}\", как и ожидалось", cfg.otusTitle());
     }
 }
