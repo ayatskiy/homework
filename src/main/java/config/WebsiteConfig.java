@@ -19,4 +19,7 @@ public interface WebsiteConfig extends Config {
     String tele2Url();
     @Key("tele2_shop_number_url")
     String tele2ShopNumberUrl();
+
+    @Key("market_url")
+    String marketUrl();
 }
