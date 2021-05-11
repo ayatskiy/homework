@@ -28,6 +28,7 @@ class ThirdHomeworkTest extends ElementsInteraction {
         logger.info("Драйвер готов к работе");
         driver.manage().timeouts().pageLoadTimeout(PAGE_TIMEOUT,TimeUnit.SECONDS);
         logger.info("Установлено время ожидания загрузки страницы в {} секунд", PAGE_TIMEOUT);
+        driver.manage().window().maximize();
     }
 
     @AfterEach
@@ -37,7 +38,7 @@ class ThirdHomeworkTest extends ElementsInteraction {
     }
 
     @Test
-    void CheckComparisonTwoProducts() {
+    void CheckComparisonTwoProducts() throws InterruptedException {
         // Step 1 - Откройте сайт Яндекс.Маркет :
         driver.get(cfg.marketUrl());
         logger.info("Сайт c URL={} открыт",cfg.marketUrl());
@@ -82,7 +83,7 @@ class ThirdHomeworkTest extends ElementsInteraction {
         logger.info("Название первого товара бренда {}: \"{}\"", brand, productName);
         // добавляем первый товар к сравнению
         getPresenceElement(
-                By.xpath("(//a[contains(@title, 'Смартфон " + brand + "')]/ancestor::article//div[contains(@aria-label, 'сравнению')])[1]"))
+                By.xpath("(//a[contains(@title, 'Смартфон " + brand + "')]/ancestor::article//div[contains(@aria-label, 'сравнению')]/div)[1]"))
                 .click();
         // проверяем, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
         String alert = getVisibilityElement(
