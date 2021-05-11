@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +66,14 @@ class ThirdHomeworkTest extends ElementsInteraction {
         waitInvisibilityElement(By.cssSelector("div[data-zone-name=\"snippetList\"] + div"));
         // Step 5 - Добавить первый в списке Xiaomi и проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
         addFirstProductOfBrandToCompareListAndCheckMsg(FIRST_BRAND);
+        // Закрываем попап с информацией о сравнении
+        WebElement closePopup = getPresenceElement(By.cssSelector("._8vSeMOsNI6 button"));
+        try{
+            closePopup.click();
+        }catch (WebDriverException e){
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", closePopup);
+        }
         // Step 6 - Добавить первый в списке Samsung и проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
         addFirstProductOfBrandToCompareListAndCheckMsg(SECOND_BRAND);
         // Step 7 - Перейти в раздел Сравнение
@@ -82,9 +91,13 @@ class ThirdHomeworkTest extends ElementsInteraction {
                 .getAttribute("title");
         logger.info("Название первого товара бренда {}: \"{}\"", brand, productName);
         // добавляем первый товар к сравнению
-        getPresenceElement(
-                By.xpath("(//a[contains(@title, 'Смартфон " + brand + "')]/ancestor::article//div[contains(@aria-label, 'сравнению')]/div)[1]"))
-                .click();
+        String compareButtonLocator = "(//a[contains(@title, 'Смартфон "
+                + brand + "')]/ancestor::article//div[contains(@aria-label, 'сравнению')]/div)[1]";
+        WebElement compareButton = getPresenceElement(By.xpath(compareButtonLocator));
+        // Наводимся на кнопку, чтобы она стала кликабельной и нажимаем
+        Actions actions = new Actions(driver);
+        actions.moveToElement(compareButton).build().perform();
+        getClickableElement(By.xpath(compareButtonLocator)).click();
         // проверяем, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
         String alert = getVisibilityElement(
                 By.xpath("//div[@data-apiary-widget-id='/content/popupInformer']//div[contains(text(), 'Товар')]"))
