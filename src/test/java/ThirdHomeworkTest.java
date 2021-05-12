@@ -39,7 +39,7 @@ class ThirdHomeworkTest extends ElementsInteraction {
     }
 
     @Test
-    void CheckComparisonTwoProducts() throws InterruptedException {
+    void CheckComparisonTwoProducts() {
         // Step 1 - Откройте сайт Яндекс.Маркет :
         driver.get(cfg.marketUrl());
         logger.info("Сайт c URL={} открыт",cfg.marketUrl());
