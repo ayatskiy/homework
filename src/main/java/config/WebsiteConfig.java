@@ -6,6 +6,10 @@ import org.aeonbits.owner.Config;
 public interface WebsiteConfig extends Config {
     @Key("otus_url")
     String otusUrl();
+    @Key("otus_login_page_url")
+    String otusLoginPageUrl();
+    @Key("otus_personal_page_url")
+    String otusPersonalPageUrl();
     @Key("otus_title")
     String otusTitle();
     @Key("otus_contactInfo")
@@ -22,4 +26,7 @@ public interface WebsiteConfig extends Config {
 
     @Key("market_url")
     String marketUrl();
+
+    @Key("browser")
+    String browser();
 }
