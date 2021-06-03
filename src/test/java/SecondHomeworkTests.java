@@ -1,43 +1,25 @@
 import config.WebsiteConfig;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import hooks.BaseHooks;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class SecondHomeworkTests {
+class SecondHomeworkTests extends BaseHooks {
 
     private final WebsiteConfig cfg = ConfigFactory.create(WebsiteConfig.class);
     private final Logger logger = LogManager.getLogger(SecondHomeworkTests.class);
-    private static WebDriver driver;
-
-    @BeforeEach
-    public void StartUp(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        logger.info("Драйвер готов к работе");
-    }
-
-    @AfterEach
-    public void End(){
-        if (driver!=null)
-            driver.quit();
-    }
 
     @Test
-    void CheckOtusContactInfo(){
+    void CheckOtusContactInfoTest(){
         // Step 1 - Откройте сайт https://otus.ru :
         driver.get(cfg.otusUrl());
         logger.info("Сайт c URL={} открыт",cfg.otusUrl());
